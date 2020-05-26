@@ -3,6 +3,35 @@ from apps.Menu.models import *
 from apps.Usuario.models import * 
 
 
+
+class RepartidorForm(forms.ModelForm):
+
+	class Meta:
+
+		model = Repartidor
+
+		fields = [
+			'nombre',
+			'apellidos',
+			'correo',
+			'contrasena',
+		]
+
+		labels = {
+			'nombre': 'Nombre',
+			'apellidos': 'Apellidos',
+			'correo': 'Email',
+			'contrasena': 'Password',
+		}
+
+		widgets = {
+			'nombre': forms.TextInput(attrs = {'class': 'form-control'}),
+			'apellidos': forms.TextInput(attrs = {'class': 'form-control'}),
+			'correo': forms.TextInput(attrs = {'class': 'form-control'}),
+			'contrasena': forms.TextInput(attrs = {'class': 'form-control'}),
+		}
+
+
 class AlimentoForm(forms.ModelForm):
 
 	class Meta:
