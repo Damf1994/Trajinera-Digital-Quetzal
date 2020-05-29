@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse 
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
 from apps.Menu.models import Alimento, Categoria 
-from apps.Usuario.forms import AlimentoForm, CategoriaForm
+from apps.Usuario.forms import AlimentoForm, CategoriaForm, RepartidorForm
+from trajinera.settings import EMAIL_HOST_USER
+from django.core.mail import send_mail 
+
 
 # Create your views here.
 
@@ -83,6 +86,24 @@ class Eliminar_Categoria(DeleteView):
 	form_class = CategoriaForm
 	template_name = 'admin/categoria/eliminar_categoria.html'
 	success_url = reverse_lazy('listado_categorias')
+
+
+
+
+def Registro_Repartidor(request):
+	repartidor = RepartidorForm()
+	if request.method == 'POST' :
+		repartidor = RepartidorForm(request.POST)
+		if repartidor.is_valid() :
+			subject = 'Bienvenido a la Trajinera Digital!'
+			message = 'El equipo Quetzal te da la Bienvenida tu contraseña es ' + str(repartidor.cleaned_data['contrasena']) + ' Accede con tu correo electronico'
+			recepient = str(repartidor.cleaned_data['correo'])
+			send_mail(subject, message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+			repartidor.save()
+			return redirect('index_menu')
+	return render(request, 'admin/repartidor/registro_repartidor.html', {'form': repartidor})
+
+
 
 
 

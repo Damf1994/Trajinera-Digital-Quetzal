@@ -14,7 +14,7 @@ class RepartidorForm(forms.ModelForm):
 			'nombre',
 			'apellidos',
 			'correo',
-			'contrasena',
+			'contrasena', 
 		]
 
 		labels = {

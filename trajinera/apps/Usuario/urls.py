@@ -19,6 +19,8 @@ urlpatterns = [
     path('eliminar_Categoria/<pk>', Eliminar_Categoria.as_view() , name = 'eliminar_categoria'),
     path('Categoria_Alimentos/<categoria>', menu_Categoria_Alimentos , name = 'categoria_alimentos'),
 
+    path('registro_repartidor/', Registro_Repartidor ,name = 'repartidor_registro'),  
+
 
 ]
 
