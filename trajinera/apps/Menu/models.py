@@ -39,3 +39,5 @@ class Orden(models.Model):
 
 	def __str__(self):
 		return 'Orden numero: {}'.format(self.id)
+
+

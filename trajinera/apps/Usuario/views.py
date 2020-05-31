@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 from django.urls import reverse_lazy
-from apps.Menu.models import Alimento, Categoria 
-from apps.Usuario.forms import AlimentoForm, CategoriaForm, RepartidorForm
+from apps.Menu.models import Alimento, Categoria, Orden
+from apps.Usuario.forms import AlimentoForm, CategoriaForm, RepartidorForm, OrdenesForm
 from trajinera.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail 
 
@@ -105,9 +105,28 @@ def Registro_Repartidor(request):
 
 
 
+class ordenes_entregadas(ListView):
+	model = Orden
+	template_name = 'admin/ordenes/ordenes_entregadas.html'
 
 
+class ordenes_pendientes(ListView):
+	model = Orden
+	template_name = 'admin/ordenes/ordenes_pendientes.html'
 
+
+def orden_alimentos(request,pk):
+	orden = Orden.objects.get(id = pk)
+	alimentos = orden.alimentos_orden.all()
+	contexto = {'orden': alimentos}
+	return render(request, 'admin/ordenes/detalle_orden.html', contexto)
+
+
+class Cambiar_estado(UpdateView):
+	model = Orden
+	form_class = OrdenesForm
+	template_name = 'admin/ordenes/cambiar_estado.html'
+	success_url = reverse_lazy('ordenes_pendientes')
 
 
 

@@ -82,3 +82,19 @@ class CategoriaForm(forms.ModelForm):
 		}
 
 
+class OrdenesForm(forms.ModelForm):
+
+	class Meta:
+
+		model = Orden
+
+		fields = [
+			'estado_orden',
+		]
+
+		labels = {
+			'estado_orden': 'Estado de la Orden',
+		}
+
+		
+

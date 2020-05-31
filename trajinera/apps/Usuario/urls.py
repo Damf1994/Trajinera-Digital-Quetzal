@@ -21,6 +21,10 @@ urlpatterns = [
 
     path('registro_repartidor/', Registro_Repartidor ,name = 'repartidor_registro'),  
 
+    path('ordenes_entregadas/', ordenes_entregadas.as_view(),name = 'ordenes_entregadas'),
+    path('ordenes_pendientes/', ordenes_pendientes.as_view(),name = 'ordenes_pendientes'),
+    path('orden_alimentos/<pk>', orden_alimentos ,name = 'orden_alimentos'),
+    path('cambiar_estado/<pk>', Cambiar_estado.as_view() , name = 'cambiar_estado'),
 
 ]
 
