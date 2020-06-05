@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('MY_SECRET_KEY', 'unsafe-secret-key') 
+SECRET_KEY = os.environ.get('MY_SECRET_KEY', 'unsafe-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,14 +31,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'apps.Usuario',
+    'apps.Menu',
+    'apps.cliente',
+    'trajinera',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.Usuario', 
-    'apps.Menu',
+
 ]
 
 MIDDLEWARE = [
@@ -49,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'trajinera.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'trajinera.urls'
@@ -125,12 +129,19 @@ STATICFILES_DIRS = [
 
     os.path.join(BASE_DIR, "static"),
 
-]   
+]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
+LOGIN_REDIRECT_URL= '/home/'
+
+LOGIN_URL = '/home/login/'
+
+LOGIN_EXEMPT_URLS = {
+    'home/registro/'
+}
 
 #DataFlair
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -140,5 +151,3 @@ EMAIL_HOST_PASSWORD = os.environ.get('USER_PASSWORD')
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_PORT = 587
- 
-
