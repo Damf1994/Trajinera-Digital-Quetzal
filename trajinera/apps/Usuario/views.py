@@ -6,32 +6,9 @@ from apps.Menu.models import Alimento, Categoria, Orden
 from apps.Usuario.forms import AlimentoForm, CategoriaForm, RepartidorForm, OrdenesForm
 from trajinera.settings import EMAIL_HOST_USER
 from django.core.mail import send_mail 
-from django.contrib.auth import authenticate
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login as do_login
-from django.contrib.auth import logout as do_logout
 
 
 # Create your views here.
-def login_administrador(request):
-	form = AuthenticationForm()
-	if request.method == "POST":
-		form = AuthenticationForm(data=request.POST)
-		if form.is_valid():
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password']
-			user = authenticate(username=username, password=password)
-			if user is not None:
-				do_login(request, user)
-				return redirect('index_menu')
-
-	return render(request, "admin/login.html", {'form': form})
-
-def logout_administrador(request):
-	do_logout(request)
-	return redirect('login_administrador')
-
-
 
 def indexAdministrador(request):
 	return render(request,'admin/index_admin.html')

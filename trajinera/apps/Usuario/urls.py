@@ -3,7 +3,6 @@ from apps.Usuario.views import *
 
 urlpatterns = [
     
-    path('login_administrador/', login_administrador ,name='login_administrador'),
     path('index_administrador/', indexAdministrador, name = 'index_menu'),
     
     path('menu_Alimentos_Administrador/', menu_Alimentos_Administrador.as_view() , name = 'menu_alimentos'),
